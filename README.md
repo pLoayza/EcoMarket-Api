@@ -1,4 +1,4 @@
-Market API
+EcoMarket API
 Este proyecto es una aplicación backend desarrollada en Java con Spring Boot, que expone dos APIs principales para la gestión de un sistema de mercado:
 
 CRUD de Usuarios
@@ -6,7 +6,7 @@ CRUD de Usuarios
 CRUD de Productos
 
 Tecnologías utilizadas
-Java 17 (o la versión que uses)
+Java 17
 
 Spring Boot 3.x
 
@@ -14,9 +14,9 @@ Spring Data JPA
 
 Hibernate
 
-Base de datos relacional (H2, MySQL, PostgreSQL, según configuración)
+Base de datos relacional PostgreSQL
 
-Maven / Gradle (según prefieras)
+Maven
 
 Estructura del proyecto
 UserController: Controlador REST para la gestión de usuarios (Crear, Leer, Actualizar, Eliminar)
@@ -44,7 +44,7 @@ Actualizar usuario: PUT /api/users/{id}
 Eliminar usuario: DELETE /api/users/{id}
 
 API de Productos
-Permite realizar operaciones CRUD sobre los productos disponibles en el mercado.
+Permite realizar operaciones CRUD sobre los productos.
 
 Crear producto: POST /api/products
 
@@ -72,12 +72,7 @@ bash
 Copiar
 Editar
 ./mvnw spring-boot:run
-o
 
-bash
-Copiar
-Editar
-./gradlew bootRun
 La aplicación estará disponible por defecto en:
 http://localhost:8080
 
