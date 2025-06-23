@@ -12,7 +12,7 @@
 	<artifactId>usuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>usuarios</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Api CRUD usuarios</description>
 	<url/>
 	<licenses>
 		<license/>
