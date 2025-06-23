@@ -5,7 +5,7 @@ Este proyecto es una aplicación backend desarrollada en Java con **Spring Boot*
 - CRUD de Usuarios
 - CRUD de Productos
 
-# 🚀 Tecnologías Utilizadas
+# asd
 
 - Java 17
 - Spring Boot
