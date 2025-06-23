@@ -1,4 +1,5 @@
-package ecoMarket.duoc.cl.usuarios.model;
+package ecoMarket.duoc.cl.productos.model;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,11 +11,11 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="usuario")
-public class Usuario {
+@Table(name="producto")
+public class Producto {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
-    private Integer idUsuario;
+    private Integer idProducto;
 }
