@@ -1,4 +1,4 @@
-#  Market API
+# Market API
 
 Este proyecto es una aplicación backend desarrollada en Java con **Spring Boot**, que expone dos APIs principales para la gestión de un sistema de mercado:
 
