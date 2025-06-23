@@ -1,165 +1,127 @@
-<<<<<<< HEAD:README.txt
-EcoMarket API
-Este proyecto es una aplicación backend desarrollada en Java con Spring Boot, que expone dos APIs principales para la gestión de un sistema de mercado:
-=======
->>>>>>> main:README.md
-
 # Market API
 
 Este proyecto es una aplicación backend desarrollada en Java con **Spring Boot**, que expone dos APIs principales para la gestión de un sistema de mercado:
 
-<<<<<<< HEAD:README.txt
-Tecnologías utilizadas
-Java 17
-=======
-- **CRUD de Usuarios**
-- **CRUD de Productos**
->>>>>>> main:README.md
+- CRUD de Usuarios
+- CRUD de Productos
 
-## Requisitos Previos
+## 🚀 Tecnologías Utilizadas
 
-- **Java 17** o superior
-- **Maven** o **Gradle** (para la gestión de dependencias)
-- **Base de Datos** (se recomienda usar MySQL, PostgreSQL, o cualquier base de datos relacional compatible)
+- Java 17
+- Spring Boot
+- Maven o Gradle
+- PostgreSQL (base de datos principal)
+- Spring Data JPA
+- H2 Database (opcional para pruebas locales)
+- Springdoc OpenAPI (Swagger UI)
 
-## Instrucciones de Configuración
+## 📁 Estructura del Proyecto
 
-<<<<<<< HEAD:README.txt
-Base de datos relacional PostgreSQL
+- UserController y ProductController: Controladores REST que exponen los endpoints para operaciones CRUD.
+- UserService y ProductService: Capa de servicio con lógica de negocio.
+- UserRepository y ProductRepository: Interfaces de acceso a datos usando Spring Data JPA.
+- User y Product: Entidades JPA que representan las tablas de la base de datos.
 
-Maven
+## ✅ Requisitos Previos
 
-Estructura del proyecto
-UserController: Controlador REST para la gestión de usuarios (Crear, Leer, Actualizar, Eliminar)
+- Java 17 o superior
+- Maven o Gradle
+- Base de Datos PostgreSQL (o H2 para pruebas)
+- IDE recomendado: IntelliJ IDEA o VSCode
 
-ProductController: Controlador REST para la gestión de productos (Crear, Leer, Actualizar, Eliminar)
+## ⚙️ Instrucciones de Configuración
 
-UserService y ProductService: Lógica de negocio para usuarios y productos
+### 1. Clonar el Repositorio
 
-UserRepository y ProductRepository: Interfaces para acceso a datos con Spring Data JPA
-
-User y Product: Entidades JPA que representan las tablas de la base de datos
-
-Funcionalidades
-API de Usuarios
-Permite realizar operaciones CRUD sobre los usuarios registrados en el sistema.
-
-Crear usuario: POST /api/users
-
-Obtener todos los usuarios: GET /api/users
-
-Obtener usuario por ID: GET /api/users/{id}
-
-Actualizar usuario: PUT /api/users/{id}
-
-Eliminar usuario: DELETE /api/users/{id}
-
-API de Productos
-Permite realizar operaciones CRUD sobre los productos.
-
-Crear producto: POST /api/products
-
-Obtener todos los productos: GET /api/products
-
-Obtener producto por ID: GET /api/products/{id}
-
-Actualizar producto: PUT /api/products/{id}
-
-Eliminar producto: DELETE /api/products/{id}
-
-Cómo ejecutar el proyecto
-Clonar el repositorio
-
-bash
-Copiar
-Editar
-=======
-### Clonar el Repositorio
-
-Clona este repositorio en tu máquina local:
-
-```bash
->>>>>>> main:README.md
 git clone https://github.com/tu_usuario/market-api.git
 cd market-api
-```
 
-### Configurar el Proyecto
+### 2. Configurar la Base de Datos
 
-<<<<<<< HEAD:README.txt
-bash
-Copiar
-Editar
-./mvnw spring-boot:run
+Edita el archivo `src/main/resources/application.yml` o `application.properties` con tus credenciales de PostgreSQL. Ejemplo:
 
-La aplicación estará disponible por defecto en:
-http://localhost:8080
-=======
-1. **Instalar las dependencias:**
+spring:
+  datasource:
+    url: jdbc:postgresql://35.223.30.52:5432/xxxxxxxx
+    username: xxxxxxxxxx
+    password: xxxxxxxxxx
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      format_sql: true
+server:
+  port: 8080
 
-Si usas Maven:
->>>>>>> main:README.md
+> Si prefieres usar H2, cambia el datasource.url a jdbc:h2:mem:testdb y habilita spring.h2.console.enabled=true
 
-```bash
+### 3. Instalar Dependencias
+
+Con Maven:
 mvn install
-```
 
-O si prefieres Gradle:
-
-```bash
+Con Gradle:
 gradle build
-```
 
-2. **Configurar el archivo de propiedades**:
+### 4. Ejecutar la Aplicación
 
-Crea un archivo `application.properties` en el directorio `src/main/resources` y configura las variables de entorno necesarias (como base de datos, puerto, etc.).
-
-Ejemplo de configuración para conexión a una base de datos MySQL:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/marketdb
-spring.datasource.username=usuario
-spring.datasource.password=contraseña
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-```
-
-### Ejecutar la Aplicación
-
-Para iniciar el servidor de Spring Boot, ejecuta:
-
-```bash
+Con Maven:
 mvn spring-boot:run
-```
 
-O si usas Gradle:
-
-```bash
+Con Gradle:
 gradle bootRun
-```
 
-La aplicación estará disponible en [http://localhost:8080](http://localhost:8080).
+La API estará disponible en: http://localhost:8080
 
-## Endpoints Disponibles
+---
 
-### CRUD de Usuarios
+## 🔌 Endpoints Disponibles
 
-- **GET** `/api/usuarios` - Obtener todos los usuarios
-- **POST** `/api/usuarios` - Crear un nuevo usuario
-- **GET** `/api/usuarios/{id}` - Obtener un usuario por ID
-- **PUT** `/api/usuarios/{id}` - Actualizar un usuario
-- **DELETE** `/api/usuarios/{id}` - Eliminar un usuario
+### CRUD de Usuarios (/api/usuarios)
 
-### CRUD de Productos
+GET    /api/usuarios        - Listar todos los usuarios
+POST   /api/usuarios        - Crear nuevo usuario
+GET    /api/usuarios/{id}   - Obtener usuario por ID
+PUT    /api/usuarios/{id}   - Actualizar usuario existente
+DELETE /api/usuarios/{id}   - Eliminar usuario por ID
 
-- **GET** `/api/productos` - Obtener todos los productos
-- **POST** `/api/productos` - Crear un nuevo producto
-- **GET** `/api/productos/{id}` - Obtener un producto por ID
-- **PUT** `/api/productos/{id}` - Actualizar un producto
-- **DELETE** `/api/productos/{id}` - Eliminar un producto
+### CRUD de Productos (/api/productos)
 
-## Contribuir
+GET    /api/productos       - Listar todos los productos
+POST   /api/productos       - Crear nuevo producto
+GET    /api/productos/{id}  - Obtener producto por ID
+PUT    /api/productos/{id}  - Actualizar producto existente
+DELETE /api/productos/{id}  - Eliminar producto por ID
 
-1. Crea una nueva rama para tu feature
-2. Realiza tus cambios
-3. Envía un Pull Request con una descripción clara de los cambios
+---
+
+## 📓 Documentación Swagger
+
+Una vez levantado el proyecto, accede a la documentación Swagger/OpenAPI en:
+
+http://localhost:8080/swagger-ui.html
+
+---
+
+## 🧪 Base de Datos H2 (para pruebas locales)
+
+Puedes habilitar la consola web de H2 agregando en tu archivo de configuración:
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+Luego accede a: http://localhost:8080/h2-console
+
+---
+
+## 🤝 Contribuir
+
+1. Haz un fork del proyecto.
+2. Crea una nueva rama: git checkout -b feature/tu-feature
+3. Realiza tus cambios y haz commit: git commit -m "Agrega nueva funcionalidad"
+4. Haz push a tu rama: git push origin feature/tu-feature
+5. Abre un Pull Request para revisión.
+
+
+
