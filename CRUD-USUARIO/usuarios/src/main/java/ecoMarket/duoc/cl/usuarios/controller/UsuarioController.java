@@ -7,9 +7,13 @@ import ecoMarket.duoc.cl.usuarios.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/api/usuarios")
 @RestController
@@ -22,17 +26,38 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.findAll(), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
-        return new ResponseEntity<>(usuarioService.save(usuario), HttpStatus.CREATED);
+    public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
+        if (result.hasErrors()) {
+            List<String> errores = result.getFieldErrors().stream()
+                    .map(err -> err.getField() + ": " + err.getDefaultMessage())
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errores);
+        }
+        try {
+            Usuario creado = usuarioService.save(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
-        return new ResponseEntity<>(usuarioService.findById(id), HttpStatus.OK);
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
+        try {
+            usuarioService.findById(id);
+            return ResponseEntity.ok(usuarioService.findById(id));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Usuario> delete(@PathVariable Integer id) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
+        try {
+            usuarioService.deleteById(id);
+            return ResponseEntity.ok("Usuario eliminado correctamente");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody Usuario usuario) {
