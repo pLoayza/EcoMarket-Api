@@ -1,5 +1,6 @@
 package ecoMarket.duoc.cl.productos.model;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +11,12 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+
     private String descripcion;
+
+    @Min(value = 1, message = "El precio debe ser mayor a 0")
     private double precio;
 
     // Getters y Setters
