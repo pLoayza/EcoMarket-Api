@@ -32,7 +32,5 @@ public class UsuarioServiceTest {
     List<Usuario> usuarios = usuarioService.findAll();
     assertNotNull(usuarios);
     assertEquals(1,usuarios.size());
-
-
     }
 }

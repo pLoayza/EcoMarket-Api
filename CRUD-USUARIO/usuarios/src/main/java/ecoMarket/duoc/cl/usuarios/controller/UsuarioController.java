@@ -3,6 +3,7 @@ package ecoMarket.duoc.cl.usuarios.controller;
 
 
 import ecoMarket.duoc.cl.usuarios.model.Usuario;
+import ecoMarket.duoc.cl.usuarios.model.UsuarioDTO;
 import ecoMarket.duoc.cl.usuarios.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class UsuarioController {
     public ResponseEntity<List<Usuario>> findAll() {
         return new ResponseEntity<>(usuarioService.findAll(), HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
         if (result.hasErrors()) {
@@ -40,32 +42,43 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
+    public ResponseEntity<?> findById(@PathVariable(required = false) String id) {
         try {
-            usuarioService.findById(id);
-            return ResponseEntity.ok(usuarioService.findById(id));
+            Integer usuarioId = Integer.parseInt(id);
+            return ResponseEntity.ok(usuarioService.findById(usuarioId));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("El ID debe ser un número entero válido");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteById(@PathVariable(required = false) String id) {
         try {
-            usuarioService.deleteById(id);
+            Integer usuarioId = Integer.parseInt(id);
+            usuarioService.deleteById(usuarioId);
             return ResponseEntity.ok("Usuario eliminado correctamente");
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("El ID debe ser un número entero válido");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody Usuario usuario) {
-        return new ResponseEntity<>(usuarioService.update(id, usuario), HttpStatus.OK);
+    public ResponseEntity<?> update(@PathVariable(required = false) String id, @RequestBody UsuarioDTO dto) {
+        try {
+            Integer usuarioId = Integer.parseInt(id);
+            usuarioService.update(usuarioId, dto);
+            return ResponseEntity.ok(usuarioService.update(usuarioId, dto));
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("El ID debe ser un número entero válido");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
 
-
-
-
-
 }
+
