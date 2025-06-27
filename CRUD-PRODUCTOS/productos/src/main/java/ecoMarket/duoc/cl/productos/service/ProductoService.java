@@ -23,6 +23,9 @@ public class ProductoService {
     }
 
     public Producto guardar(Producto producto) {
+        if (productoRepository.existsByNombre(producto.getNombre())) {
+            throw new IllegalArgumentException("Nombre de producto ya registrado");
+        }
         return productoRepository.save(producto);
     }
 
