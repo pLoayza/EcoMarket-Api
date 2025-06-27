@@ -59,6 +59,9 @@ public class ProductoControllerTest {
         producto.setNombre("Producto válido");
         producto.setPrecio(500);
         producto.setDescripcion("Descripción opcional");
+        producto.setStock(5);
+        producto.setEstado(true);
+
 
         mockMvc.perform(post("/api/productos")
                         .contentType(MediaType.APPLICATION_JSON)

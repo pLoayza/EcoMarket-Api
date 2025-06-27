@@ -27,6 +27,8 @@ public class ProductoDataLoader implements CommandLineRunner {
             producto.setNombre(faker.commerce().productName());
             producto.setDescripcion(faker.lorem().sentence(5));
             producto.setPrecio(1 + random.nextInt(10000)); // precios >= 1
+            producto.setStock(random.nextInt(10)+1);
+            producto.setEstado(true);
             productoRepository.save(producto);
         }
     }

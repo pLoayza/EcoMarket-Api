@@ -3,6 +3,7 @@ package ecoMarket.duoc.cl.productos.controller;
 import ecoMarket.duoc.cl.productos.model.Producto;
 import ecoMarket.duoc.cl.productos.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,8 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping
-    public List<Producto> obtenerTodos() {
-        return productoService.obtenerTodos();
+    public ResponseEntity<List<Producto>> obtenerTodos() {
+        return new ResponseEntity<>(productoService.obtenerTodos(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -41,7 +42,13 @@ public class ProductoController {
             return ResponseEntity.badRequest().body(errores);
         }
 
-        return ResponseEntity.ok(productoService.guardar(producto));
+        try {
+            Producto creado = productoService.guardar(producto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
 
     @PutMapping("/{id}")

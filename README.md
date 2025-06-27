@@ -9,7 +9,7 @@ Este proyecto es una aplicación backend desarrollada en Java con **Spring Boot*
 ## Requisitos Previos
 
 - **Java 17** o superior
-- **Maven** o **Gradle** (para la gestión de dependencias)
+- **Maven** 
 - **Base de Datos** (se recomienda usar MySQL, PostgreSQL, o cualquier base de datos relacional compatible)
 
 ## Instrucciones de Configuración
@@ -20,7 +20,7 @@ Clona este repositorio en tu máquina local:
 
 ```bash
 git clone https://github.com/tu_usuario/market-api.git
-cd market-api
+cd EcoMarket-Api
 ```
 
 ### Configurar el Proyecto
@@ -33,41 +33,46 @@ Si usas Maven:
 mvn install
 ```
 
-O si prefieres Gradle:
-
-```bash
-gradle build
-```
-
 2. **Configurar el archivo de propiedades**:
 
-Crea un archivo `application.properties` en el directorio `src/main/resources` y configura las variables de entorno necesarias (como base de datos, puerto, etc.).
+En el archivo `application.yml` en el directorio `src/main/resources` de cada api, configura las variables de entorno necesarias (como base de datos, puerto, etc.).
 
 Ejemplo de configuración para conexión a una base de datos MySQL:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/marketdb
-spring.datasource.username=usuario
-spring.datasource.password=contraseña
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring:
+profiles:
+active: ${SPRING_PROFILES_ACTIVE:dev}
+application:
+name: usuarios
+datasource:
+url: jdbc:postgresql://ip:puerto/nombre_base_de_datos
+username: usuario
+password: contraseña
+hikari:
+maximum-pool-size: 1
+jpa:
+hibernate:
+ddl-auto: create-drop
+show-sql: true
+properties:
+format_sql: true
+hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+port: 8090
 ```
 
 ### Ejecutar la Aplicación
 
-Para iniciar el servidor de Spring Boot, ejecuta:
+Para iniciar el servidor de Spring Boot, en la api que se quiera ejecutar:
 
 ```bash
 mvn spring-boot:run
 ```
 
-O si usas Gradle:
 
-```bash
-gradle bootRun
-```
-
-La aplicación estará disponible en [http://localhost:8080](http://localhost:8080).
+La aplicación estará disponible en [http://localhost:puerto](http://localhost:8080).
 
 ## Endpoints Disponibles
 
@@ -87,6 +92,9 @@ La aplicación estará disponible en [http://localhost:8080](http://localhost:80
 - **PUT** `/api/productos/{id}` - Actualizar un producto
 - **DELETE** `/api/productos/{id}` - Eliminar un producto
 
+- En ambos CRUD si no se especifíca el estado por defecto será un Boolean true
+- Se recomienda no hacer delete si no hacer "soft delete", cambiando el estado
+tanto de usuario como de producto
 ## Contribuir
 
 1. Crea una nueva rama para tu feature
