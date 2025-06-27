@@ -49,7 +49,8 @@ public class Usuario {
     @NotBlank(message = "El telefono no es valido")
     private String telefono;
 
-    @Column
-    private Boolean estado;
+    @Column(nullable = false)
+    private Boolean estado = true;
+
 
 }

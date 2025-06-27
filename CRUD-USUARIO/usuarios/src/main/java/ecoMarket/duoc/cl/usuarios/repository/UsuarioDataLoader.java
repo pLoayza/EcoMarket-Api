@@ -17,7 +17,6 @@ public class UsuarioDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Faker faker = new Faker();
-        Random random = new Random();
 
         for (int i = 0; i < 15; i++) {
             Usuario usuario = new Usuario();

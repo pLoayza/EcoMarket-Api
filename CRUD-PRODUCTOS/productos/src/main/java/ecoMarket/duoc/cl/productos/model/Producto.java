@@ -1,54 +1,45 @@
 package ecoMarket.duoc.cl.productos.model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Table(name = "productos")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
-    @NotBlank(message = "El nombre es obligatorio")
+    @Column(unique = true)
+    @NotBlank(message = "Debe proporcionar un nombre válido")
     private String nombre;
 
-    private String descripcion;
-
-    @Min(value = 1, message = "El precio debe ser mayor a 0")
+    @Column(nullable = false)
+    @Min(value = 1, message = "El precio no es valido")
     private double precio;
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    @NotBlank(message = "Debe proporcionar una descripcion válida")
+    private String descripcion;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    @NotNull(message = "El stock es obligatorio")
+    @Min(value = 0, message = "El stock no puede ser negativo")
+    private Integer stock;
 
-    public String getNombre() {
-        return nombre;
-    }
+    @Column(nullable = false)
+    private Boolean estado = true;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
 }
+
