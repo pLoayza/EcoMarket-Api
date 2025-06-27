@@ -7,13 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
-
+@Profile("!test")
 @Component
-@Profile("!est") // no se ejecuta en modo test
-public class DataLoader implements CommandLineRunner {
+
+public class UsuarioDataLoader implements CommandLineRunner {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Override
