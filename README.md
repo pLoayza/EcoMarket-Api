@@ -37,7 +37,7 @@ mvn install
 
 En el archivo `application.yml` en el directorio `src/main/resources` de cada api, configura las variables de entorno necesarias (como base de datos, puerto, etc.).
 
-Ejemplo de configuración para conexión a una base de datos MySQL:
+Ejemplo de configuración para conexión a una base de datos PostgreSQL:
 
 ```properties
 spring:
@@ -60,7 +60,7 @@ format_sql: true
 hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-port: 8090
+port: puerto
 ```
 
 ### Ejecutar la Aplicación
