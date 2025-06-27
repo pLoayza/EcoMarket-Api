@@ -70,8 +70,8 @@ public class UsuarioController {
     public ResponseEntity<?> update(@PathVariable(required = false) String id, @RequestBody UsuarioDTO dto) {
         try {
             Integer usuarioId = Integer.parseInt(id);
-            usuarioService.update(usuarioId, dto);
-            return ResponseEntity.ok(usuarioService.update(usuarioId, dto));
+            var resultado = usuarioService.update(usuarioId, dto);
+            return ResponseEntity.ok(resultado);
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().body("El ID debe ser un número entero válido");
         } catch (Exception e) {
